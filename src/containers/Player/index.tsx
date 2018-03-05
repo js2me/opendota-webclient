@@ -13,6 +13,7 @@ import {AsyncComponent} from "../../utils/AsyncComponentLoader";
 import * as ReactDOM from 'react-dom';
 import PlayerNavigation from "./components/PlayerNavigation";
 import {Header} from "../../components/Header";
+import {NavigationButton} from "../../components/NavigationButton";
 
 
 
@@ -86,8 +87,7 @@ export default class Player extends React.Component<Player.Props, Player.State> 
   }
 
   @autobind()
-  closeModal(e) {
-    e.preventDefault();
+  closeModal() {
     this.context.router.history.push('/'+Header.PreviousRoute + Header.PreviousRouteQuery);
   }
 
@@ -146,11 +146,8 @@ export default class Player extends React.Component<Player.Props, Player.State> 
     }
     return (
       <div className={`modal player ${this.state.hideModalTrigger && 'hide'}`}>
-        <button className="close-modal-button" onClick={this.closeModal}>
-          <span className='button-bar'/>
-          <span className='button-bar'/>
-          <span className='button-bar'/>
-        </button>
+        <NavigationButton handler={this.closeModal}/>
+
         {fullPlayerLoaded && fullPlayer.profile &&
         <PlayerWordCloud playerId={fullPlayer.profile.account_id}/>}
         {fullPlayerLoaded ?
